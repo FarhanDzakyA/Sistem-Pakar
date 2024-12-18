@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pakar - Rekomendasi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Rekomendasi Perawatan</h1>
+    <div id="recommendation">
+        <!-- Rekomendasi akan diisi oleh JS -->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const hasil = params.get("hasil");
+
+            let rekomendasi = "";
+
+            switch (hasil) {
+                case "normal":
+                    rekomendasi = "Kulit Anda tergolong normal. Disarankan menggunakan pelembab ringan dan produk kosmetik berbahan dasar air.";
+                    break;
+                case "berminyak":
+                    rekomendasi = "Kulit Anda tergolong berminyak. Disarankan menggunakan produk berbahan non-komedogenik dan menghindari minyak berlebih.";
+                    break;
+                case "kering":
+                    rekomendasi = "Kulit Anda tergolong kering. Disarankan menggunakan pelembab intensif dan produk berbahan emolien.";
+                    break;
+                case "kombinasi":
+                    rekomendasi = "Kulit Anda tergolong kombinasi. Disarankan menggunakan produk yang seimbang untuk area berminyak dan kering.";
+                    break;
+                case "sensitif":
+                    rekomendasi = "Kulit Anda tergolong sensitif. Disarankan menggunakan produk hypoallergenic dan menghindari bahan iritatif.";
+                    break;
+                default:
+                    rekomendasi = "Tidak ada rekomendasi yang tersedia.";
+            }
+
+            document.getElementById("recommendation").innerHTML = `<p>${rekomendasi}</p>`;
+        });
+    </script>
+</body>
+</html>
