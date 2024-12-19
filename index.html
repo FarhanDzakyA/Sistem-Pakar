@@ -3,14 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pakar</title>
-
-    <script src="app.js"></script>
+    <title>Skintology</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Daftar Gejala</h1>
-    <form action="" id="gejalaForm">
-        <!-- Generate menggunakan JS -->
-    </form>
+
+<body class="min-h-screen bg-white">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between px-6 py-4 mb-8 fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div class="flex items-center ps-10">
+            <a href="index.html">
+                <img src="/img/logo.png" alt="Skintology Logo" class="h-8">
+            </a>
+        </div>
+        <div class="flex space-x-8 pe-10">
+            <a href="#" class="text-gray-600 hover:text-gray-900 font-semibold">Home</a>
+            <a href="diagnose.html" class="text-gray-600 hover:text-gray-900 font-semibold">Diagnose</a>
+            <a href="#about-us" class="text-gray-600 hover:text-gray-900 font-semibold">About Us</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="max-w-7xl mx-auto px-8 py-44">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="rounded-3xl overflow-hidden bg-rose-100">
+                <img 
+                    src="/img/main.png"
+                    alt="Skincare Model" 
+                    class="w-full h-full object-cover"
+                />
+            </div>
+            <div class="bg-gray-100 rounded-3xl flex flex-col items-center justify-center p-12 space-y-8">
+                <h1 class="text-3xl font-semibold text-gray-800 text-center max-w-md">
+                    "Advanced Skin Type Analysis for Smarter Skincare Decisions."
+                </h1>
+                <a href="diagnose.html" class="bg-white px-8 py-3 rounded-md text-gray-800 hover:bg-gray-50 transition-colors text-center">
+                    Diagnose Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about-us" class="max-w-4xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold text-center mb-12">About Us</h2>
+        <p class="text-gray-700 text-xl leading-relaxed text-justify"></p>
+            SKINTOLOGY uses the Certainty Factor (CF) method to identify your skin type with precision. 
+            This approach measures the confidence level of a hypothesis based on available evidence. 
+            Each symptom is assigned a weight and CF value, which are used to calculate the total CF 
+            for each skin type. The results are then normalized to provide a clear and accurate diagnosis, 
+            helping you understand your skin better and make informed skincare choices.
+        </p>
+    </div>
+
+    <!-- Team Section -->
+    <div class="py-16">
+        <h2 class="text-3xl font-semibold text-center mb-12">Meet Our Team</h2>
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-[#582424] text-white p-4 rounded-lg text-center">
+                    Farhan Dzaky Aldias
+                </div>
+                <div class="bg-[#582424] text-white p-4 rounded-lg text-center">
+                    Suntan Jundi Khalid
+                </div>
+                <div class="bg-[#582424] text-white p-4 rounded-lg text-center">
+                    Ananda Sheva Hidayat
+                </div>
+                <div class="bg-[#582424] text-white p-4 rounded-lg text-center">
+                    Leo Nardo
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#582424] text-white py-4 text-center">
+        <p>©2024 SKINTOLOGY. All Right Reserved.</p>
+    </footer>
 </body>
 </html>
