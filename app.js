@@ -157,13 +157,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     
         // Tambah tombol untuk menghitung hasil
+        const buttonDiv = document.createElement("div");
         const button = document.createElement("button");
         button.textContent = "Hitung Hasil";
         button.type = "button";
+        buttonDiv.className = "flex justify-end";
         button.className = "bg-red-900 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300";
 
         // Memasukkan element button ke dalam form di html
-        form.appendChild(button);
+        buttonDiv.appendChild(button);
+        form.appendChild(buttonDiv);
     
         button.addEventListener("click", () => {
             // Cek apakah semua input <select> sudah terisi
@@ -230,29 +233,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Mengambil nilai 'result' dari URL
             const result = params.get("result");
+            console.log(result);
+
+            if (result === 'normal') {
+                const image = document.createElement("img");
+                image.src = "/img/kulit-normal.jpeg";
+                image.alt = "Gambar tipe kulit normal";
+                image.className = "mx-auto mb-8 md:max-w-[50%] w-full rounded-md object-cover shadow-md";
+
+                container.appendChild(image);
+            } else if (result === 'berminyak') {
+                const image = document.createElement("img");
+                image.src = "/img/kulit-berminyak.jpeg";
+                image.alt = "Gambar tipe kulit berminyak";
+                image.className = "mx-auto mb-8 md:max-w-[50%] w-full rounded-md object-cover shadow-md";
+
+                container.appendChild(image);
+            } else if (result === 'kering') {
+                const image = document.createElement("img");
+                image.src = "/img/kulit-kering.jpeg";
+                image.alt = "Gambar tipe kulit kering";
+                image.className = "mx-auto mb-8 md:max-w-[50%] w-full rounded-md object-cover shadow-md";
+
+                container.appendChild(image);
+            } else if (result === 'kombinasi') {
+                const image = document.createElement("img");
+                image.src = "/img/kulit-kombinasi.jpeg";
+                image.alt = "Gambar tipe kulit kombinasi";
+                image.className = "mx-auto mb-8 md:max-w-[50%] w-full rounded-md object-cover shadow-md";
+
+                container.appendChild(image);
+            } else if (result === 'sensitif') {
+                const image = document.createElement("img");
+                image.src = "/img/kulit-sensitive.jpeg";
+                image.alt = "Gambar tipe kulit sensitive";
+                image.className = "mx-auto mb-8 md:max-w-[50%] w-full rounded-md object-cover shadow-md";
+
+                container.appendChild(image);
+            } 
 
             // Membuat elemen h1 untuk menampilkan tipe kulit berdasarkan hasil diagnosa
             const type = document.createElement("h1");
             type.textContent = `Tipe Kulit Anda: ${result}`;
-            type.className = "text-2xl font-bold mb-4";
+            type.className = "inline-block bg-[#582424] rounded-lg text-2xl text-white font-semibold capitalize mb-8 px-6 py-3";
 
             // Membuat header untuk bagian solusi
             const solutionHeader = document.createElement("h1");
             solutionHeader.textContent = "Solusi";
-            solutionHeader.className = "text-xl font-semibold mb-2";
+            solutionHeader.className = "text-2xl font-bold mb-2";
     
             // Membuat elemen paragraf untuk menampilkan solusi yang sesuai
             const solution = document.createElement("p");
-            const solusi = solusiKulit.find(item => item.jenisKulit === result).solusi; // Mencari solusi berdasarkan jenis kulit yang didiagnosa
+            const solusi = solusiKulit.find(item => item.jenisKulit === result)?.solusi; // Mencari solusi berdasarkan jenis kulit yang didiagnosa
     
             // Jika solusi ditemukan, ganti karakter \n dengan <br> untuk pemformatan
             if (solusi) {
                 const solusiWithBR = solusi.replace(/\n/g, '<br>');
                 solution.innerHTML = solusiWithBR;
-                solution.className = "text-gray-700";
+                solution.className = "text-justify text-gray-700 md:max-w-[50%]";
             } else {
                 solution.textContent = "Solusi untuk tipe kulit ini tidak tersedia.";
-                solution.className = "text-gray-700";
+                solution.className = "text-justify text-gray-700 md:max-w-[50%]";
             }
             
             // Menambahkan elemen-elemen yang telah dibuat ke dalam container
