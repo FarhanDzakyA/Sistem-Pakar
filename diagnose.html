@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Sistem Pakar</title>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        a {
+            transition: color 0.3s ease;
+        }
+    </style>
     <script src="app.js"></script>
 </head>
-<body>
-    <h1>Daftar Gejala</h1>
-    <form action="" id="gejalaForm">
-        <!-- Generate menggunakan JS -->
-    </form>
+<body class="flex flex-col min-h-screen">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between px-6 py-4 mb-8 fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div class="flex items-center ps-10">
+            <a href="index.html">
+                <img src="/img/logo.png" alt="Skintology Logo" class="h-8">
+            </a>
+        </div>
+        <div class="flex space-x-8 pe-10">
+            <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">Home</a>
+            <a href="#" class="text-gray-600 hover:text-gray-900 font-semibold">Diagnose</a>
+            <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">About Us</a>
+        </div>
+    </nav>
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">Daftar Gejala</h1>
+        <form action="" id="gejalaForm" class="space-y-4">
+            <!-- Generate menggunakan JS -->
+        </form>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#582424] text-white py-4 text-center">
+        <p>©2024 SKINTOLOGY. All Right Reserved.</p>
+    </footer>
 </body>
 </html>

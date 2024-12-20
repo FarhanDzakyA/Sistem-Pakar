@@ -118,11 +118,13 @@ document.addEventListener("DOMContentLoaded", function () {
         gejalaDataset.forEach(item => {
             // Membuat element div
             const div = document.createElement("div");
+            div.className = "flex flex-col mb-4";
             
             // Membuat element input select
             const input = document.createElement('select');
             input.id = item.id;
             input.name = 'gejala[]';
+            input.className = "border border-gray-300 rounded-md p-2";
             
             // Membuat default opsi dari element select
             const defaultOption = document.createElement('option');
@@ -144,10 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const label = document.createElement('label');
             label.htmlFor = item.id;
             label.textContent = item.gejala;
+            label.className = "mb-2 font-semibold";
     
             // Memasukkan element input dan label ke dalam div
-            div.appendChild(input);
             div.appendChild(label);
+            div.appendChild(input);
     
             // Memasukkan element div ke dalam form di html
             form.appendChild(div);
@@ -157,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const button = document.createElement("button");
         button.textContent = "Hitung Hasil";
         button.type = "button";
+        button.className = "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600";
 
         // Memasukkan element button ke dalam form di html
         form.appendChild(button);
@@ -230,10 +234,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // Membuat elemen h1 untuk menampilkan tipe kulit berdasarkan hasil diagnosa
             const type = document.createElement("h1");
             type.textContent = `Tipe Kulit Anda: ${result}`;
+            type.className = "text-2xl font-bold mb-4";
 
             // Membuat header untuk bagian solusi
             const solutionHeader = document.createElement("h1");
             solutionHeader.textContent = "Solusi";
+            solutionHeader.className = "text-xl font-semibold mb-2";
     
             // Membuat elemen paragraf untuk menampilkan solusi yang sesuai
             const solution = document.createElement("p");
@@ -243,8 +249,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (solusi) {
                 const solusiWithBR = solusi.replace(/\n/g, '<br>');
                 solution.innerHTML = solusiWithBR;
+                solution.className = "text-gray-700";
             } else {
                 solution.textContent = "Solusi untuk tipe kulit ini tidak tersedia.";
+                solution.className = "text-gray-700";
             }
             
             // Menambahkan elemen-elemen yang telah dibuat ke dalam container
