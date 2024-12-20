@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Dataset untuk setiap gejala yang ada
     const gejalaDataset = [
         { id: "G001", gejala: "Tidak berminyak" },
         { id: "G002", gejala: "Segar dan halus" },
@@ -22,47 +23,16 @@ document.addEventListener("DOMContentLoaded", function() {
         { id: "G020", gejala: "Kulit mudah terlihat kemerahan." }
     ];
 
+    // Dataset nilai CF untuk input user
     const cfInput = [
-        { id: "1", kondisi: "Tidak Tahu", cf: 0 },
-        { id: "2", kondisi: "Kemungkinan", cf: 0.4 },
-        { id: "3", kondisi: "Kemungkinan Besar", cf: 0.6 },
-        { id: "4", kondisi: "Hampir Pasti", cf: 0.8 },
-        { id: "5", kondisi: "Pasti", cf: 1 }
+        { kondisi: "Tidak Tahu", cf: 0 },
+        { kondisi: "Kemungkinan", cf: 0.4 },
+        { kondisi: "Kemungkinan Besar", cf: 0.6 },
+        { kondisi: "Hampir Pasti", cf: 0.8 },
+        { kondisi: "Pasti", cf: 1 }
     ];
 
-    const form = document.getElementById("gejalaForm");
-
-    gejalaDataset.forEach(item => {
-        const div = document.createElement("div");
-        
-        const input = document.createElement('select');
-        input.id = item.id;
-        input.name = 'gejala[]';
-        
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '-- Pilih Jawaban --';
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        input.appendChild(defaultOption);
-
-        cfInput.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.cf;
-            option.textContent = item.kondisi;
-            input.appendChild(option);
-        });
-
-        const label = document.createElement('label');
-        label.htmlFor = item.id;
-        label.textContent = item.gejala;
-
-        div.appendChild(input);
-        div.appendChild(label);
-
-        form.appendChild(div);
-    });
-      
+    // Dataset pembobotan gejala
     const pembobotanGejala = {
         normal: [
             { id: "G001", gejala: "Tidak berminyak", bobot: 0.8 },
@@ -101,34 +71,190 @@ document.addEventListener("DOMContentLoaded", function() {
         ]
     };
 
-    console.log(gejalaDataset);
+    // Dataset solusi setiap jenis kulit
+    const solusiKulit = [
+        {
+            jenisKulit: "normal",
+            solusi:
+                `1. Membersihkan wajah cukup dengan air, ketika kulit wajah dalam keadaan tanpa makeup.\n
+                2. Jika kulit wajah dalam keadaan ber-makeup, bisa dibersihkan menggunakan milk cleanser, face tonic, dan facial foam.\n
+                3. Bisa menggunakan face tonic dan krim pelembab, ketika musim panas. Karena di musim panas kulit normal akan terasa agak kering.\n
+                4. Perawatan facial di klinik kecantikan diperlukan sewaktu-waktu saja, cukup 1 kali dalam 3 bulan.\n
+                5. Menggunakan krim tabir surya untuk melindungi dari panas sinar matahari.`
+        },
+        {
+            jenisKulit: "berminyak",
+            solusi: 
+                `1. Membersihkan wajah menggunakan facial foam, kemudian dibilas sampai bersih.
+                2. Setelah mencuci wajah, gunakan face tonic.`
+        },
+        {
+            jenisKulit: "kering",
+            solusi: 
+                `1. Gunakan krim pelembap sesering mungkin, baik pada siang maupun malam hari.
+                2. Gunakan tabir surya pada siang hari, karena kulit kering ini sangat mudah terkena flek kecokelatan.
+                3. Jangan terlalu sering menggunakan sabun wajah.`
+        },
+        {
+            jenisKulit: "kombinasi",
+            solusi: 
+                `1. Gunakan selalu facial foam, milk cleanser dan face tonic.
+                2. Lakukan perawatan facial di salon kecantikan sebulan sekali.
+                3. Oleskan tipis-tipis krim atau lotion pencegah komedo pada malam hari.`
+        },
+        {
+            jenisKulit: "sensitif",
+            solusi: 
+                `Berdasarkan gejalanya, perawatan kulit sensitif ditujukan untuk melindungi kulit serta mengurangi dan menanggulangi iritasi. Kulit sensitif tidak dapat diamati secara langsung, diperlukan bantuan dokter kulit atau dermatolog untuk memeriksanya dalam tes alergi-imunologi. Apabila dideteksi alergi, maka biasanya pasien akan diberi beberapa allergen untuk mengetahui kadar sensivitas kulit.`
+        }
+    ];
+
+    // Agar kode dibawah ini hanya diakses ketika berada pada halaman diagnose.html
+    if (window.location.pathname === "/diagnose.html") {
+        // Mencari elemen html dengan id gejalaForm dan disimpan ke dalam variabel
+        const form = document.getElementById("gejalaForm");
     
-    // Contoh akses data untuk jenis kulit normal
-    console.log("Pembobotan Gejala Kulit Normal:");
-    pembobotanGejala.normal.forEach((item) => {
-        console.log(`ID: ${item.id}, Gejala: ${item.gejala}, Bobot: ${item.bobot}`);
-    });
+        // Buat input select untuk setiap gejala
+        gejalaDataset.forEach(item => {
+            // Membuat element div
+            const div = document.createElement("div");
+            
+            // Membuat element input select
+            const input = document.createElement('select');
+            input.id = item.id;
+            input.name = 'gejala[]';
+            
+            // Membuat default opsi dari element select
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = '-- Pilih Jawaban --';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            input.appendChild(defaultOption);
+    
+            // Membuat opsi-opsi dari element select
+            cfInput.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.cf;
+                option.textContent = item.kondisi;
+                input.appendChild(option);
+            });
+    
+            // Membuat label untuk element select
+            const label = document.createElement('label');
+            label.htmlFor = item.id;
+            label.textContent = item.gejala;
+    
+            // Memasukkan element input dan label ke dalam div
+            div.appendChild(input);
+            div.appendChild(label);
+    
+            // Memasukkan element div ke dalam form di html
+            form.appendChild(div);
+        });
+    
+        // Tambah tombol untuk menghitung hasil
+        const button = document.createElement("button");
+        button.textContent = "Hitung Hasil";
+        button.type = "button";
 
-    // Contoh akses data untuk jenis kulit berminyak
-    console.log("\nPembobotan Gejala Kulit Berminyak:");
-    pembobotanGejala.berminyak.forEach((item) => {
-        console.log(`ID: ${item.id}, Gejala: ${item.gejala}, Bobot: ${item.bobot}`);
-    });
+        // Memasukkan element button ke dalam form di html
+        form.appendChild(button);
+    
+        button.addEventListener("click", () => {
+            // Cek apakah semua input <select> sudah terisi
+            const allSelects = document.querySelectorAll("select");
+            let valid = true;
+    
+            // Proses pengecekan apakah semua input <select> sudah terisi
+            allSelects.forEach(select => {
+                if (!select.value) {
+                    valid = false;
+                }
+            });
+    
+            // Pengkondisian dimana jika nilai valid adalah false akan menampilkan peringatan
+            if (!valid) {
+                Swal.fire ({
+                    title: "Harap Isi Semua Jawaban Sebelum Menghitung Hasil!",
+                    icon: "warning"
+                });
+                return;
+            }
+    
+            // Inisialisasi variabel hasil
+            const hasil = {};
+        
+            // Menghitung total CF untuk setiap jenis kulit
+            for (const jenis in pembobotanGejala) {
+                let total = 0;
+                pembobotanGejala[jenis].forEach(item => {
+                    const cf = parseFloat(document.getElementById(item.id).value) || 0;
+                    total += cf * item.bobot;
+                });
+                hasil[jenis] = total / pembobotanGejala[jenis].length;
+            }
+        
+            // Normalisasi hasil agar total mendekati 100%
+            const sumHasil = Object.values(hasil).reduce((sum, value) => sum + value, 0);
+        
+            const hasilNormalisasi = {};
+            for (const jenis in hasil) {
+                hasilNormalisasi[jenis] = (hasil[jenis] / sumHasil) * 100;
+            }
 
-    // Contoh akses data untuk jenis kulit normal
-    console.log("Pembobotan Gejala Kulit Normal:");
-    pembobotanGejala.kering.forEach((item) => {
-        console.log(`ID: ${item.id}, Gejala: ${item.gejala}, Bobot: ${item.bobot}`);
-    });
+            // Menyimpan nilai dari hasilNormalisasi kedalam localStorage
+            localStorage.setItem("hasilNormalisasi", JSON.stringify(hasilNormalisasi));
+    
+            // Mencari nilai tertinggi diantara ke-lima jenis kulit
+            const highest = Object.keys(hasilNormalisasi).reduce((a, b) => hasilNormalisasi[a] > hasilNormalisasi[b] ? a : b);
+            
+            // Melakukan referencing ke halaman result
+            window.location.href = `result.html?result=${highest}`;
+        });
+    }
 
-    // Contoh akses data untuk jenis kulit berminyak
-    console.log("\nPembobotan Gejala Kulit Berminyak:");
-    pembobotanGejala.kombinasi.forEach((item) => {
-        console.log(`ID: ${item.id}, Gejala: ${item.gejala}, Bobot: ${item.bobot}`);
-    });
+    // Agar kode dibawah ini hanya diakses ketika berada pada halaman result.html
+    if (window.location.pathname === "/result.html") {
+        // Mencari parameter dari URL menggunakan URLSearchParams
+        const params = new URLSearchParams(window.location.search);
+    
+        // Melakukan pengecekan apakah terdapat parameter result di URL
+        if (params.has("result")) {
+            // Mengambil elemen dengan id 'diagnosisResult' di halaman untuk menampilkan hasil
+            const container = document.getElementById("diagnosisResult");
 
-    console.log("\nPembobotan Gejala Kulit Berminyak:");
-    pembobotanGejala.sensitif.forEach((item) => {
-        console.log(`ID: ${item.id}, Gejala: ${item.gejala}, Bobot: ${item.bobot}`);
-    });
-})
+            // Mengambil nilai 'result' dari URL
+            const result = params.get("result");
+
+            // Membuat elemen h1 untuk menampilkan tipe kulit berdasarkan hasil diagnosa
+            const type = document.createElement("h1");
+            type.textContent = `Tipe Kulit Anda: ${result}`;
+
+            // Membuat header untuk bagian solusi
+            const solutionHeader = document.createElement("h1");
+            solutionHeader.textContent = "Solusi";
+    
+            // Membuat elemen paragraf untuk menampilkan solusi yang sesuai
+            const solution = document.createElement("p");
+            const solusi = solusiKulit.find(item => item.jenisKulit === result).solusi; // Mencari solusi berdasarkan jenis kulit yang didiagnosa
+    
+            // Jika solusi ditemukan, ganti karakter \n dengan <br> untuk pemformatan
+            if (solusi) {
+                const solusiWithBR = solusi.replace(/\n/g, '<br>');
+                solution.innerHTML = solusiWithBR;
+            } else {
+                solution.textContent = "Solusi untuk tipe kulit ini tidak tersedia.";
+            }
+            
+            // Menambahkan elemen-elemen yang telah dibuat ke dalam container
+            container.appendChild(type);
+            container.appendChild(solutionHeader);
+            container.appendChild(solution);
+
+            // Menampilkan semua nilai hasil diagnosa di console
+            const hasilNormalisasi = JSON.parse(localStorage.getItem("hasilNormalisasi"));
+            console.log("Hasil Normalisasi:", hasilNormalisasi);
+        }
+    }
+});
