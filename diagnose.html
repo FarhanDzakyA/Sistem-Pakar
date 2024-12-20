@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pakar</title>
+    <title>Skintology - Diagnosa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -18,18 +18,30 @@
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Navigation -->
-    <nav class="flex items-center justify-between px-6 py-4 mb-8 fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-        <div class="flex items-center ps-10">
+    <nav class="flex items-center justify-between px-4 py-4 mb-8 fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div class="flex items-center">
             <a href="index.html">
                 <img src="/img/logo.png" alt="Skintology Logo" class="h-8">
             </a>
         </div>
-        <div class="flex space-x-8 pe-10">
+        <div class="hidden md:flex space-x-8 pe-10">
             <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">Beranda</a>
             <a href="#" class="text-gray-600 hover:text-gray-900 font-semibold">Diagnosa</a>
             <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">Tentang Kami</a>
         </div>
+        <div class="md:hidden flex items-center">
+            <button id="menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
+    <div id="menu" class="hidden md:hidden flex flex-col space-y-4 mt-20 px-6 transition-all duration-300 ease-in-out">
+        <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">Beranda</a>
+        <a href="#" class="text-gray-600 hover:text-gray-900 font-semibold">Diagnosa</a>
+        <a href="index.html" class="text-gray-600 hover:text-gray-900 font-semibold">Tentang Kami</a>
+    </div>
     <main class="flex-grow container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-6 text-center py-20">Daftar Gejala</h1>
         <form action="" id="gejalaForm" class="space-y-4 max-w-lg mx-auto">
@@ -40,5 +52,12 @@
     <footer class="bg-[#582424] text-white py-4 text-center">
         <p>©2024 SKINTOLOGY. All Right Reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
