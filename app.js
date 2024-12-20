@@ -207,62 +207,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 hasilNormalisasi[jenis] = (hasil[jenis] / sumHasil) * 100;
             }
 
-            // Menyimpan nilai dari hasilNormalisasi kedalam localStorage
-            localStorage.setItem("hasilNormalisasi", JSON.stringify(hasilNormalisasi));
-    
             // Mencari nilai tertinggi diantara ke-lima jenis kulit
             const highest = Object.keys(hasilNormalisasi).reduce((a, b) => hasilNormalisasi[a] > hasilNormalisasi[b] ? a : b);
             
-            // Melakukan referencing ke halaman result
-            window.location.href = `result.html?result=${highest}`;
+            // Mencari solusi berdasarkan jenis kulit yang didiagnosa
+            const solusi = solusiKulit.find(item => item.jenisKulit === highest).solusi;
+
+            // Menampilkan hasil diagnosa dalam bentuk popup
+            Swal.fire({
+                title: `Tipe Kulit Anda: ${highest}`,
+                html: `<h2>Solusi</h2><p>${solusi.replace(/\n/g, '<br>')}</p>`,
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
         });
-    }
-
-    // Agar kode dibawah ini hanya diakses ketika berada pada halaman result.html
-    if (window.location.pathname === "/result.html") {
-        // Mencari parameter dari URL menggunakan URLSearchParams
-        const params = new URLSearchParams(window.location.search);
-    
-        // Melakukan pengecekan apakah terdapat parameter result di URL
-        if (params.has("result")) {
-            // Mengambil elemen dengan id 'diagnosisResult' di halaman untuk menampilkan hasil
-            const container = document.getElementById("diagnosisResult");
-
-            // Mengambil nilai 'result' dari URL
-            const result = params.get("result");
-
-            // Membuat elemen h1 untuk menampilkan tipe kulit berdasarkan hasil diagnosa
-            const type = document.createElement("h1");
-            type.textContent = `Tipe Kulit Anda: ${result}`;
-            type.className = "text-2xl font-bold mb-4";
-
-            // Membuat header untuk bagian solusi
-            const solutionHeader = document.createElement("h1");
-            solutionHeader.textContent = "Solusi";
-            solutionHeader.className = "text-xl font-semibold mb-2";
-    
-            // Membuat elemen paragraf untuk menampilkan solusi yang sesuai
-            const solution = document.createElement("p");
-            const solusi = solusiKulit.find(item => item.jenisKulit === result).solusi; // Mencari solusi berdasarkan jenis kulit yang didiagnosa
-    
-            // Jika solusi ditemukan, ganti karakter \n dengan <br> untuk pemformatan
-            if (solusi) {
-                const solusiWithBR = solusi.replace(/\n/g, '<br>');
-                solution.innerHTML = solusiWithBR;
-                solution.className = "text-gray-700";
-            } else {
-                solution.textContent = "Solusi untuk tipe kulit ini tidak tersedia.";
-                solution.className = "text-gray-700";
-            }
-            
-            // Menambahkan elemen-elemen yang telah dibuat ke dalam container
-            container.appendChild(type);
-            container.appendChild(solutionHeader);
-            container.appendChild(solution);
-
-            // Menampilkan semua nilai hasil diagnosa di console
-            const hasilNormalisasi = JSON.parse(localStorage.getItem("hasilNormalisasi"));
-            console.log("Hasil Normalisasi:", hasilNormalisasi);
-        }
     }
 });
